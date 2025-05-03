@@ -1,0 +1,16 @@
+package com.example.buyornot.repository;
+
+import com.example.buyornot.domain.Item;
+import com.example.buyornot.domain.Status;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ItemRepository extends JpaRepository<Item, Long> {
+
+    // ✅ 특정 유저의 대기 중 아이템만 remindDate 기준으로 정렬
+    List<Item> findAllByUserIdAndStatusEnumOrderByRemindDateAsc(String userId, Status statusEnum);
+}
+

@@ -1,8 +1,8 @@
 spring:
   profiles:
     active: local  # ?? "dev", "prod" ? ?? ??
-  .application:
-    .name=buy-or-not
+  application:
+    name: buy-or-not
 
 ---
 

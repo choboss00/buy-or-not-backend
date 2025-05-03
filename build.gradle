@@ -20,15 +20,16 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26' // ✅ 추가
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26' // ✅ 테스트 시에도 필요
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // Optional: H2 database for in-memory testing
     runtimeOnly("com.h2database:h2")
-
-    // Rest API Docs : SpringDoc OpenAPI
-    implementation 'org.springdoc:springdoc-openapi-ui:2.1.0'
 }
 
 tasks.named('test') {

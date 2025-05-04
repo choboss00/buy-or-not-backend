@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class HomeResponse {
+public class ItemResponse {
     private Long id;
     private String name;
     private String memo;

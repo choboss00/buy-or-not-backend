@@ -3,7 +3,8 @@ package com.example.buyornot.service;
 import com.example.buyornot.domain.Item;
 import com.example.buyornot.domain.Status;
 import com.example.buyornot.repository.ItemRepository;
-import com.example.buyornot.response.HomeResponse;
+import com.example.buyornot.request.ItemRequest;
+import com.example.buyornot.response.ItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,17 +14,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class HomeService {
+public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public List<HomeResponse> getWaitingItems(String userId) {
-        List<Item> items = itemRepository.findAllByUserIdAndStatusEnumOrderByRemindDateAsc(userId, Status.WAITING);
+    public List<ItemResponse> getWaitingItems(String userId) {
+        List<Item> items = itemRepository.findAllByUserIdAndStatusOrderByRemindDateAsc(userId, Status.WAITING);
 
         return items.stream()
                 .map(item -> {
                     long dDay = ChronoUnit.DAYS.between(LocalDate.now(), item.getRemindDate());
-                    return new HomeResponse(
+                    return new ItemResponse(
                             item.getId(),
                             item.getName(),
                             item.getMemo(),
@@ -34,6 +35,22 @@ public class HomeService {
                     );
                 })
                 .toList();
+    }
+
+    public void createItem(String userId, ItemRequest request) {
+        LocalDate now = LocalDate.now();
+
+        Item item = new Item();
+        item.setUserId(userId);
+        item.setName(request.getName());
+        item.setPrice(request.getPrice());
+        item.setMemo(request.getMemo());
+        item.setRemindDate(request.getRemindDate() != null ? request.getRemindDate() : now.plusDays(7));
+        item.setCreatedDate(now);
+        item.setUpdatedDate(now);
+        item.setStatus(Status.WAITING); // 기본 상태: 대기
+
+        itemRepository.save(item);
     }
 }
 

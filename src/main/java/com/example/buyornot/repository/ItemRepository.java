@@ -11,6 +11,6 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // ✅ 특정 유저의 대기 중 아이템만 remindDate 기준으로 정렬
-    List<Item> findAllByUserIdAndStatusEnumOrderByRemindDateAsc(String userId, Status statusEnum);
+    List<Item> findAllByUserIdAndStatusOrderByRemindDateAsc(String userId, Status status);
 }
 

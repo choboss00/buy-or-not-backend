@@ -15,5 +15,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByUserIdAndStatusOrderByRemindDateAsc(String userId, Status status);
 
     Optional<Item> findTopByOrderByCreatedDateDesc();
+
+    List<Item> findAllByUserIdAndStatus(String userId, Status status);
 }
 

@@ -5,6 +5,7 @@ import com.example.buyornot.domain.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +21,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByUserIdAndStatus(String userId, Status status);
 
     Collection<Item> findAllByUserIdAndStatusOrderByRemindDateDesc(String userId, Status status);
+
+    List<Item> findAllByRemindDateBetween(LocalDateTime start, LocalDateTime end);
+
 }
 

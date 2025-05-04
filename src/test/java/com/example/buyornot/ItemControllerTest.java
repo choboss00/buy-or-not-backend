@@ -81,7 +81,11 @@ public class ItemControllerTest {
                 .andExpect(status().isOk());
 
         // then
-        Item saved = itemRepository.findAll().get(3);
+        long initialCount = itemRepository.count();
+        Item saved = itemRepository.findAll().stream()
+                .filter(item -> itemRepository.count() > initialCount)
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Newly created item not found"));
         assertThat(saved.getName()).isEqualTo("에어팟");
         assertThat(saved.getUserId()).isEqualTo(userId);
         assertThat(saved.getMemo()).isEqualTo("노이즈 캔슬링이 필요해");

@@ -2,6 +2,7 @@ package com.example.buyornot.controller;
 
 import com.example.buyornot.domain.Item;
 import com.example.buyornot.request.ItemRequest;
+import com.example.buyornot.request.StatusUpdateRequest;
 import com.example.buyornot.response.ItemDetailResponse;
 import com.example.buyornot.response.ItemResponse;
 import com.example.buyornot.service.ItemService;
@@ -48,5 +49,15 @@ public class ItemController {
         ItemDetailResponse response = new ItemDetailResponse(item);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{itemId}")
+    public ResponseEntity<Void> updateItemStatus(
+            @PathVariable Long itemId,
+            @RequestHeader("User-Id") String userId,
+            @RequestBody StatusUpdateRequest request
+    ) {
+        itemService.updateItemStatus(itemId, userId, request.getStatus());
+        return ResponseEntity.ok().build();
     }
 }

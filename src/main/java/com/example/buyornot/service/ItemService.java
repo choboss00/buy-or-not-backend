@@ -60,4 +60,17 @@ public class ItemService {
     public Item getItemById(Long itemId) {
         return itemRepository.findById(itemId).orElse(null);  // 아이템이 없으면 null 반환
     }
+
+    public void updateItemStatus(Long itemId, String userId, Status newStatus) {
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 아이템이 존재하지 않습니다."));
+
+        if (!item.getUserId().equals(userId)) {
+            throw new IllegalStateException("해당 아이템에 대한 권한이 없습니다.");
+        }
+
+        item.setStatus(newStatus);
+        item.setUpdatedDate(LocalDateTime.now());
+        itemRepository.save(item);
+    }
 }

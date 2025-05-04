@@ -28,7 +28,7 @@ public class Item {
     private Integer price;
 
     @Enumerated(EnumType.STRING)
-    private Status statusEnum;
+    private Status status;
 
     private LocalDate remindDate;
 

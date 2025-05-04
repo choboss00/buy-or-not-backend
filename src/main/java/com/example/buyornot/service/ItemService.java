@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -23,7 +24,10 @@ public class ItemService {
 
         return items.stream()
                 .map(item -> {
-                    long dDay = ChronoUnit.DAYS.between(LocalDate.now(), item.getRemindDate());
+                    long dDay = item.getRemindDate() != null
+                            ? ChronoUnit.DAYS.between(LocalDate.now(), item.getRemindDate().toLocalDate())
+                            : 0;
+
                     return new ItemResponse(
                             item.getId(),
                             item.getName(),
@@ -38,7 +42,7 @@ public class ItemService {
     }
 
     public void createItem(String userId, ItemRequest request) {
-        LocalDate now = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
 
         Item item = new Item();
         item.setUserId(userId);
@@ -52,5 +56,8 @@ public class ItemService {
 
         itemRepository.save(item);
     }
-}
 
+    public Item getItemById(Long itemId) {
+        return itemRepository.findById(itemId).orElse(null);  // 아이템이 없으면 null 반환
+    }
+}

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,5 +15,5 @@ public class ItemRequest {
     private Integer price;
     private String memo;
     private String category;
-    private LocalDate remindDate; // 클라이언트에서 선택 가능, 없으면 서버에서 7일 후로 설정
+    private LocalDateTime remindDate; // 클라이언트에서 선택 가능, 없으면 서버에서 7일 후로 설정
 }

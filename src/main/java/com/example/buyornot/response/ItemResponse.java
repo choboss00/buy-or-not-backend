@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -12,7 +13,7 @@ public class ItemResponse {
     private String name;
     private String memo;
     private Integer price;
-    private LocalDate createdDate;
-    private LocalDate remindDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime remindDate;
     private long dDay;
 }

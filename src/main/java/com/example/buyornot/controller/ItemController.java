@@ -1,6 +1,8 @@
 package com.example.buyornot.controller;
 
+import com.example.buyornot.domain.Item;
 import com.example.buyornot.request.ItemRequest;
+import com.example.buyornot.response.ItemDetailResponse;
 import com.example.buyornot.response.ItemResponse;
 import com.example.buyornot.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +33,20 @@ public class ItemController {
 
         itemService.createItem(userId, request);
         return ResponseEntity.ok().build();
+    }
+
+    // 아이템 상세 조회
+    @GetMapping("/{itemId}")
+    public ResponseEntity<ItemDetailResponse> getItemDetail(@PathVariable Long itemId) {
+        // 아이템 정보 조회
+        Item item = itemService.getItemById(itemId);
+        if (item == null) {
+            return ResponseEntity.notFound().build();  // 아이템이 없으면 404 반환
+        }
+
+        // 응답 DTO로 변환
+        ItemDetailResponse response = new ItemDetailResponse(item);
+
+        return ResponseEntity.ok(response);
     }
 }

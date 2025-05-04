@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "items")
@@ -30,10 +31,16 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private LocalDate remindDate;
+    private LocalDateTime remindDate;
 
-    private LocalDate createdDate;
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime createdDate;
 
-    private LocalDate updatedDate;
+    private LocalDateTime updatedDate;
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();  // 아이템 생성 시 자동으로 날짜를 설정
+    }
 
 }

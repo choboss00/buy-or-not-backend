@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -61,5 +61,25 @@ public class HistoryControllerTest {
                 .andExpect(jsonPath("$.declinedCount", is(3)))
                 .andExpect(jsonPath("$.declineRate", is(60.0)))
                 .andExpect(jsonPath("$.totalDeclinedAmount", is(510000)));
+    }
+
+    @Test
+    void 구매_목록_API_정상_응답() throws Exception {
+        mockMvc.perform(get("/api/history/purchased")
+                        .header("User-Id", userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[*].status", containsInAnyOrder("PURCHASED", "PURCHASED")));
+    }
+
+    @Test
+    void 참기_목록_API_정상_응답() throws Exception {
+        mockMvc.perform(get("/api/history/declined")
+                        .header("User-Id", userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[*].status", containsInAnyOrder("DECLINED", "DECLINED", "DECLINED")));
     }
 }

@@ -3,6 +3,7 @@ package com.example.buyornot;
 import com.example.buyornot.domain.Item;
 import com.example.buyornot.domain.Status;
 import com.example.buyornot.repository.ItemRepository;
+import com.example.buyornot.request.StatusUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,10 +18,9 @@ import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -134,6 +134,35 @@ public class ItemControllerTest {
             this.memo = memo;
             this.category = category;
             this.remindDate = remindDate;
+        }
+    }
+
+    @Test
+    void 항목_상태_업데이트_성공() throws Exception {
+        // given: 상태를 BOUGHT로 바꾸는 요청
+        String patchBody = objectMapper.writeValueAsString(
+                new StatusUpdateRequest(Status.PURCHASED)
+        );
+
+        // when & then
+        mockMvc.perform(patch("/api/items/{itemId}", itemId1)
+                        .header("User-Id", userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(patchBody))
+                .andExpect(status().isOk());
+
+        // DB에 저장된 항목 확인
+        Item updatedItem = itemRepository.findById(itemId1)
+                .orElseThrow(() -> new RuntimeException("업데이트된 아이템을 찾을 수 없습니다."));
+
+        assertThat(updatedItem.getStatus()).isEqualTo(Status.PURCHASED);
+    }
+
+    static class StatusUpdateRequest {
+        public Status status;
+
+        public StatusUpdateRequest(Status status) {
+            this.status = status;
         }
     }
 }

@@ -5,6 +5,7 @@ import com.example.buyornot.domain.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +14,16 @@ import java.util.Optional;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // ✅ 특정 유저의 대기 중 아이템만 remindDate 기준으로 정렬
-    List<Item> findAllByUserIdAndStatusOrderByRemindDateAsc(String userId, Status status);
+    List<Item> findAllByUserIdAndStatusOrderByRemindDateAsc(Long userId, Status status);
 
     Optional<Item> findTopByOrderByCreatedDateDesc();
 
-    List<Item> findAllByUserIdAndStatus(String userId, Status status);
+    List<Item> findAllByUserIdAndStatus(Long userId, Status status);
 
-    List<Item> findAllByUserIdAndStatusOrderByRemindDateDesc(String userId, Status status);
+    Collection<Item> findAllByUserIdAndStatusOrderByRemindDateDesc(Long userId, Status status);
+
+    List<Item> findAllByRemindDateBetween(LocalDateTime start, LocalDateTime end);
+
+    List<Item> findAllByUserIdAndStatusOrderByRemindDateDesc(Long userId, Status status);
 }
 

@@ -21,7 +21,7 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<ItemResponse>> getHomeItems(
-            @RequestHeader("User-Id") String userId) {
+            @RequestHeader("User-Id") Long userId) {
 
         List<ItemResponse> items = itemService.getWaitingItems(userId);
         return ResponseEntity.ok(items);
@@ -29,7 +29,7 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<Void> createItem(
-            @RequestHeader("User-Id") String userId,
+            @RequestHeader("User-Id") Long userId,
             @RequestBody ItemRequest request) {
 
         itemService.createItem(userId, request);
@@ -54,7 +54,7 @@ public class ItemController {
     @PatchMapping("/{itemId}")
     public ResponseEntity<Void> updateItemStatus(
             @PathVariable Long itemId,
-            @RequestHeader("User-Id") String userId,
+            @RequestHeader("User-Id") Long userId,
             @RequestBody StatusUpdateRequest request
     ) {
         itemService.updateItemStatus(itemId, userId, request.getStatus());

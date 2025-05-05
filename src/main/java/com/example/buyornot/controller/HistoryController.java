@@ -19,17 +19,17 @@ public class HistoryController {
     private final HistoryService historyService;
 
     @GetMapping("/summary")
-    public HistorySummaryResponse getHistorySummary(@RequestHeader("User-Id") String userId) {
+    public HistorySummaryResponse getHistorySummary(@RequestHeader("User-Id") Long userId) {
         return historyService.getHistorySummary(userId);
     }
 
     @GetMapping("/purchased")
-    public List<HistoryItemResponse> getPurchasedItems(@RequestHeader("User-Id") String userId) {
+    public List<HistoryItemResponse> getPurchasedItems(@RequestHeader("User-Id") Long userId) {
         return historyService.getPurchasedItems(userId);
     }
 
     @GetMapping("/declined")
-    public List<HistoryItemResponse> getDeclinedItems(@RequestHeader("User-Id") String userId) {
+    public List<HistoryItemResponse> getDeclinedItems(@RequestHeader("User-Id") Long userId) {
         return historyService.getDeclinedItems(userId);
     }
 }

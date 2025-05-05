@@ -20,7 +20,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId; // ✅ 사용자 구분용 UUID
+    private Long userId; // ✅ 사용자 구분용 UUID
 
     private String name;
 

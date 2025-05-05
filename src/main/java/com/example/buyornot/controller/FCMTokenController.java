@@ -17,7 +17,7 @@ public class FCMTokenController {
     @PostMapping("/register")
     public ResponseEntity<Void> registerFcmToken(@RequestHeader("User-Id") Long userId,
                                                  @RequestBody FCMTokenRequest request) {
-        fcmTokenService.registerToken(userId, request.getDeviceToken());
+        fcmTokenService.saveOrUpdateToken(userId, request.getDeviceToken());
         return ResponseEntity.ok().build();
     }
 }

@@ -30,6 +30,8 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // Optional: H2 database for in-memory testing
     runtimeOnly("com.h2database:h2")
+    // FCM
+    implementation 'com.google.firebase:firebase-admin:9.2.0'
 }
 
 tasks.named('test') {

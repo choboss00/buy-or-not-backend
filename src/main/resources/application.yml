@@ -8,6 +8,8 @@ spring:
 
 # application-local.yml (H2 ????)
 spring:
+  jackson:
+    time-zone: Asia/Seoul
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -23,3 +25,4 @@ spring:
     properties:
       hibernate:
         format_sql: true
+

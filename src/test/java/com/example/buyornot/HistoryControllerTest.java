@@ -27,7 +27,7 @@ public class HistoryControllerTest {
     @Autowired
     private ItemRepository itemRepository;
 
-    private final String userId = "test-user-5678";
+    private final Long userId = 1L;
 
     @BeforeEach
     void setUp() {

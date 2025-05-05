@@ -51,19 +51,5 @@ public class FCMTokenControllerTest {
         assertThat(saved.getDeviceToken()).isEqualTo(deviceToken);
     }
 
-    static class FcmTokenRequest {
-        private String deviceToken;
-
-        public FcmTokenRequest(String deviceToken) {
-            this.deviceToken = deviceToken;
-        }
-
-        public String getDeviceToken() {
-            return deviceToken;
-        }
-
-        public void setDeviceToken(String deviceToken) {
-            this.deviceToken = deviceToken;
-        }
-    }
+// Removed the inner FcmTokenRequest class. The existing FCMTokenRequest DTO from the main package will be used instead.
 }

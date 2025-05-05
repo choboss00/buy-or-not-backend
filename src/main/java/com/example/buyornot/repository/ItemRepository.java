@@ -24,5 +24,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findAllByRemindDateBetween(LocalDateTime start, LocalDateTime end);
 
+    List<Item> findAllByUserIdAndStatusOrderByRemindDateDesc(String userId, Status status);
 }
 

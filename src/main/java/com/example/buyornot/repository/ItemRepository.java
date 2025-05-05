@@ -20,8 +20,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findAllByUserIdAndStatus(Long userId, Status status);
 
-    Collection<Item> findAllByUserIdAndStatusOrderByRemindDateDesc(Long userId, Status status);
-
     List<Item> findAllByRemindDateBetween(LocalDateTime start, LocalDateTime end);
 
     List<Item> findAllByUserIdAndStatusOrderByRemindDateDesc(Long userId, Status status);

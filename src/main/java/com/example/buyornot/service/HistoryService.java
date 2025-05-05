@@ -17,7 +17,7 @@ public class HistoryService {
 
     private final ItemRepository itemRepository;
 
-    public HistorySummaryResponse getHistorySummary(String userId) {
+    public HistorySummaryResponse getHistorySummary(Long userId) {
         List<Item> purchasedItems = itemRepository.findAllByUserIdAndStatus(userId, Status.PURCHASED);
         List<Item> declinedItems = itemRepository.findAllByUserIdAndStatus(userId, Status.DECLINED);
 
@@ -41,14 +41,14 @@ public class HistoryService {
         );
     }
 
-    public List<HistoryItemResponse> getPurchasedItems(String userId) {
+    public List<HistoryItemResponse> getPurchasedItems(Long userId) {
         return itemRepository.findAllByUserIdAndStatusOrderByRemindDateDesc(userId, Status.PURCHASED)
                 .stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
-    public List<HistoryItemResponse> getDeclinedItems(String userId) {
+    public List<HistoryItemResponse> getDeclinedItems(Long userId) {
         return itemRepository.findAllByUserIdAndStatusOrderByRemindDateDesc(userId, Status.DECLINED)
                 .stream()
                 .map(this::toResponse)

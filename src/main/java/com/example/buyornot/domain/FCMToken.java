@@ -16,7 +16,7 @@ public class FCMToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;  // Long 타입으로 변경
+    private String userId;
 
     private String deviceToken; // FCM Device Token
 
@@ -26,7 +26,7 @@ public class FCMToken {
     @Column(nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public FCMToken(Long userId, String deviceToken) {
+    public FCMToken(String userId, String deviceToken) {
         this.userId = userId;
         this.deviceToken = deviceToken;
     }

@@ -30,12 +30,14 @@ public class NotificationService {
         String body = "지금 앱에서 구매 여부를 결정해주세요.";
 
         Message message = Message.builder()
-                .setToken(targetToken)
-                .setNotification(Notification.builder()
-                        .setTitle(title)
-                        .setBody(body)
-                        .build())
-                .build();
+                            .setToken(targetToken)
+                            .setNotification(Notification.builder()
+                            .setTitle(title)
+                            .setBody(body)
+                            .build())
+                            .putData("itemId", item.getId().toString())  // <- 여기에 itemId 담기
+                            .putData("action", "open_decision")
+                            .build();
 
         try {
             String response = FirebaseMessaging.getInstance().send(message);
@@ -45,7 +47,7 @@ public class NotificationService {
         }
     }
 
-    private String getUserDeviceToken(Long userId) {
+    private String getUserDeviceToken(String userId) {
         return fcmTokenRepository.findByUserId(userId)
                 .map(FCMToken::getDeviceToken)
                 .orElse(null);

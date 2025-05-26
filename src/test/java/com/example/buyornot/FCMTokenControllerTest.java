@@ -2,6 +2,7 @@ package com.example.buyornot;
 
 import com.example.buyornot.domain.FCMToken;
 import com.example.buyornot.repository.FCMTokenRepository;
+import com.example.buyornot.request.FCMTokenRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ public class FCMTokenControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final Long userId = 100L;
+    private final String userId = "100";
     private final String deviceToken = "sample-fcm-token";
 
     @BeforeEach
@@ -37,7 +38,7 @@ public class FCMTokenControllerTest {
 
     @Test
     void FCM_토큰_등록_API_정상작동() throws Exception {
-        String requestJson = objectMapper.writeValueAsString(new FcmTokenRequest(deviceToken));
+        String requestJson = objectMapper.writeValueAsString(new FCMTokenRequest(deviceToken));
 
         mockMvc.perform(post("/api/fcm/register")
                         .header("User-Id", userId)

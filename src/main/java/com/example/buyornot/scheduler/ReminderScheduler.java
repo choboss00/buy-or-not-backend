@@ -20,7 +20,8 @@ public class ReminderScheduler {
     private final NotificationService notificationService;
 
     // 매일 오후 6시 실행
-    @Scheduled(cron = "0 0 18 * * *")
+    //@Scheduled(cron = "0 0 18 * * *")
+    @Scheduled(cron = "0 * * * * *") // 매 분 0초마다 실행
     public void sendDailyReminders() {
         LocalDate today = LocalDate.now();
 

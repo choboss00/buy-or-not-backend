@@ -36,7 +36,7 @@ public class ItemControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final Long userId = 1L;
+    private final String userId = "1";
 
     private Long itemId1;
     private Long itemId2;

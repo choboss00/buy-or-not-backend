@@ -4,6 +4,12 @@ spring:
   application:
     name: buy-or-not
 
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 ---
 
 # application-local.yml (H2 ????)

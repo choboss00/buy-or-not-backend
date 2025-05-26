@@ -21,7 +21,7 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<ItemResponse>> getHomeItems(
-            @RequestHeader("User-Id") Long userId) {
+            @RequestHeader("User-Id") String userId) {
 
         List<ItemResponse> items = itemService.getWaitingItems(userId);
         return ResponseEntity.ok(items);
@@ -29,7 +29,7 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<Void> createItem(
-            @RequestHeader("User-Id") Long userId,
+            @RequestHeader("User-Id") String userId,
             @RequestBody ItemRequest request) {
 
         itemService.createItem(userId, request);
@@ -38,7 +38,7 @@ public class ItemController {
 
     // 아이템 상세 조회
     @GetMapping("/{itemId}")
-    public ResponseEntity<ItemDetailResponse> getItemDetail(@PathVariable Long itemId) {
+    public ResponseEntity<ItemDetailResponse> getItemDetail(@PathVariable("itemId") Long itemId) {
         // 아이템 정보 조회
         Item item = itemService.getItemById(itemId);
         if (item == null) {
@@ -53,8 +53,8 @@ public class ItemController {
 
     @PatchMapping("/{itemId}")
     public ResponseEntity<Void> updateItemStatus(
-            @PathVariable Long itemId,
-            @RequestHeader("User-Id") Long userId,
+            @PathVariable("itemId") Long itemId,
+            @RequestHeader("User-Id") String userId,
             @RequestBody StatusUpdateRequest request
     ) {
         itemService.updateItemStatus(itemId, userId, request.getStatus());

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FCMTokenRepository extends JpaRepository<FCMToken, Long> {
-    Optional<FCMToken> findByUserIdAndDeviceToken(Long userId, String deviceToken);
-    List<FCMToken> findAllByUserId(Long userId);
+    Optional<FCMToken> findByUserIdAndDeviceToken(String userId, String deviceToken);
+    List<FCMToken> findAllByUserId(String userId);
 
-    Optional<FCMToken> findByUserId(Long userId);
+    Optional<FCMToken> findByUserId(String userId);
 
 }

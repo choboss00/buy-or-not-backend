@@ -19,7 +19,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public List<ItemResponse> getWaitingItems(Long userId) {
+    public List<ItemResponse> getWaitingItems(String userId) {
         List<Item> items = itemRepository.findAllByUserIdAndStatusOrderByRemindDateAsc(userId, Status.WAITING);
 
         return items.stream()
@@ -41,7 +41,7 @@ public class ItemService {
                 .toList();
     }
 
-    public void createItem(Long userId, ItemRequest request) {
+    public void createItem(String userId, ItemRequest request) {
         LocalDateTime now = LocalDateTime.now();
 
         Item item = new Item();
@@ -61,11 +61,14 @@ public class ItemService {
         return itemRepository.findById(itemId).orElse(null);  // 아이템이 없으면 null 반환
     }
 
-    public void updateItemStatus(Long itemId, Long userId, Status newStatus) {
+    public void updateItemStatus(Long itemId, String userId, Status newStatus) {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이템이 존재하지 않습니다."));
 
-        if (!item.getUserId().equals(userId)) {
+        System.out.println("DB의 userId = " + item.getUserId());
+        System.out.println("요청 userId = " + userId);
+
+        if (!item.getUserId().toString().equals(userId)) {
             throw new IllegalStateException("해당 아이템에 대한 권한이 없습니다.");
         }
 

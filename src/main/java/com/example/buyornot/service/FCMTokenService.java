@@ -14,7 +14,7 @@ public class FCMTokenService {
     private final FCMTokenRepository fcmTokenRepository;
 
     @Transactional
-    public void saveOrUpdateToken(Long userId, String token) {
+    public void saveOrUpdateToken(String userId, String token) {
         fcmTokenRepository.findByUserId(userId).ifPresentOrElse(existing -> {
             existing.updateToken(token);
             fcmTokenRepository.save(existing);
@@ -23,7 +23,7 @@ public class FCMTokenService {
         });
     }
 
-    public List<FCMToken> getTokensByUserId(Long userId) {
+    public List<FCMToken> getTokensByUserId(String userId) {
         return fcmTokenRepository.findAllByUserId(userId);
     }
 }
